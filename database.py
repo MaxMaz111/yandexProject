@@ -22,9 +22,8 @@ class DataBase:
                                                          and db_tuple.get_state()[1] == t.get_state()[1]
                                                          and db_tuple.get_state()[2] == t.get_state()[2]):
                 is_in_table = True
-
         if is_in_table:
-            pass
+            self.window.stateLabel.setText('Вы уже добавили друга с таким ником')
         elif db_tuple.primary_key or db_tuple.primary_key == 0:
             self.db.get(db_tuple.table).append(db_tuple)
             self.upload_to_db()
