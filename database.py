@@ -27,6 +27,11 @@ class DataBase:
         elif db_tuple.primary_key or db_tuple.primary_key == 0:
             self.db.get(db_tuple.table).append(db_tuple)
             self.upload_to_db()
+        else:
+            if db_tuple.table == 'Friends':
+                self.window.stateLabel.setText('Введите ник')
+            if db_tuple.table == 'Games':
+                self.window.stateLabel.setText('Введите название игры')
         db_tuple.handling_type = "None"
 
     def upload_to_db(self):
