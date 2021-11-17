@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeader
 
 from add_game import AddGame
 from database import DataBase
-from entity import DBTuple
+from db_tuple import DBTuple
 
 
 class MainWindow(QMainWindow):

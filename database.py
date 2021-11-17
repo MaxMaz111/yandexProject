@@ -1,5 +1,6 @@
 from db_manager import DataBaseManager
-from entity import DBTuple
+from db_tuple import DBTuple
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel
 
 
 class DataBase:
@@ -23,7 +24,13 @@ class DataBase:
                                                          and db_tuple.get_state()[2] == t.get_state()[2]):
                 is_in_table = True
         if is_in_table:
-            self.window.stateLabel.setText('Вы уже добавили друга с таким ником')
+            dlg = QDialog(self.window)
+            dlg.layout = QVBoxLayout()
+            dlg.setFixedSize(300, 50)
+            dlg.setWindowTitle("Ошибка")
+            dlg.layout.addWidget(QLabel("Вы уже это добавили"))
+            dlg.setLayout(dlg.layout)
+            dlg.exec()
         elif db_tuple.primary_key or db_tuple.primary_key == 0:
             self.db.get(db_tuple.table).append(db_tuple)
             self.upload_to_db()
