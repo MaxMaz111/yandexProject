@@ -37,14 +37,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="friendDescText">
+      <widget class="QTextEdit" name="friendDescText">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>17</pointsize>
         </font>
-       </property>
-       <property name="text">
-        <string/>
        </property>
       </widget>
      </item>
