@@ -1,6 +1,7 @@
 from db_manager import DataBaseManager
 from db_tuple import DBTuple
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel
+
+from dialog import Dialog
 
 
 class DataBase:
@@ -19,26 +20,24 @@ class DataBase:
     def add_DBTuple(self, db_tuple):
         is_in_table = False
         for t in self.db[db_tuple.table]:
-            if db_tuple.primary_key == t.primary_key or (db_tuple.table == "FriendsGames"
-                                                         and db_tuple.get_state()[1] == t.get_state()[1]
-                                                         and db_tuple.get_state()[2] == t.get_state()[2]):
+            if (db_tuple.table == "FriendsGames"
+                    and db_tuple.get_state()[1] == t.get_state()[1]
+                    and db_tuple.get_state()[2] == t.get_state()[2]):
                 is_in_table = True
+                break
         if is_in_table:
-            dlg = QDialog(self.window)
-            dlg.layout = QVBoxLayout()
-            dlg.setFixedSize(300, 50)
-            dlg.setWindowTitle("Ошибка")
-            dlg.layout.addWidget(QLabel("Вы уже это добавили"))
-            dlg.setLayout(dlg.layout)
-            dlg.exec()
+            Dialog('Вы уже добавили эту игру другу')
+        elif db_tuple.table == 'Friends' and not db_tuple.state['steam_name'] and not db_tuple.state["name"]:
+            Dialog("Введите имя и ник друга")
+        elif db_tuple.table == 'Friends' and not db_tuple.state['steam_name']:
+            Dialog("Введите ник друга")
+        elif db_tuple.table == 'Friends' and not db_tuple.state["name"]:
+            Dialog("Введите имя друга")
+        elif db_tuple.table == 'Games' and not db_tuple.state['name']:
+            Dialog('Введите название игры')
         elif db_tuple.primary_key or db_tuple.primary_key == 0:
             self.db.get(db_tuple.table).append(db_tuple)
             self.upload_to_db()
-        else:
-            if db_tuple.table == 'Friends':
-                self.window.stateLabel.setText('Введите ник')
-            if db_tuple.table == 'Games':
-                self.window.stateLabel.setText('Введите название игры')
         db_tuple.handling_type = "None"
 
     def upload_to_db(self):

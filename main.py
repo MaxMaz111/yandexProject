@@ -38,7 +38,6 @@ class MainWindow(QMainWindow):
             self.gamesTable.setItem(i, 0, QTableWidgetItem(str(games_res[i])))
 
     def add_game(self):
-        self.stateLabel.setText('')
         name = self.gameNameLine.text()
         rating = self.gameRatingSpinBox.value()
         url = self.gameURLLine.text()
@@ -75,7 +74,6 @@ class MainWindow(QMainWindow):
         self.pickedGamesTable.removeRow(i.row())
 
     def add_friend(self):
-        self.stateLabel.setText('')
         nick = self.friendNickLine.text()
         name = self.friendNameLine.text()
         desc = self.friendDescLine.text()
